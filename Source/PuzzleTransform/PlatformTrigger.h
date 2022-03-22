@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "PlatformTrigger.generated.h"
 
+class AMovingPlatform;
+
 UCLASS()
 class PUZZLETRANSFORM_API APlatformTrigger : public AActor
 {
@@ -26,5 +28,14 @@ public:
 private:
 	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = "true"))
 	class UBoxComponent* TriggerVolume;
+
+	UPROPERTY(EditAnywhere)
+	TArray<AMovingPlatform*> PlatformsToTrigger;
+
+	UFUNCTION()
+	void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	UFUNCTION()
+	void OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
 };
